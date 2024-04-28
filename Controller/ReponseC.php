@@ -93,4 +93,41 @@ class ReponseC
             die('Error: ' . $e->getMessage());
         }
     }
+
+
+
+
+     //tri
+
+     public function sortLocaux($sortby) {
+        try{ $query = "SELECT * FROM reponse ORDER BY $sortby ASC";
+         $db = Config::getConnexion();
+         $result = $db->query($query);
+         $list = array();
+         if ($result->rowCount() > 0) {
+             while($row = $result->fetch()) {
+                 $list[] = $row;
+             }
+         }
+         return $list;} catch (PDOException $e) {
+             die("Error occurred:" . $e->getMessage());
+         }
+ 
+     }
+
+
+     function searchLocalById($id_local){
+        try {
+            $db = Config::getConnexion();
+            $query = $db->prepare('SELECT * FROM reponse WHERE idrep= :idrep');
+            $query->bindValue(':idrep', $id_local);
+            $query->execute();
+            $result = $query->fetchAll();
+            return $result;
+        } catch (PDOException $e) {
+            die("Error occurred:" . $e->getMessage());
+        }
+    }
+
+
 }

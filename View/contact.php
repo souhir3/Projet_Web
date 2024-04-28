@@ -3,7 +3,8 @@
 /*session created*/
 include '../Controller/ReclamationC.php';
 session_start();
-$_SESSION["idclient"]=10;
+$_SESSION["idclient"]=20;
+$_SESSION["idrec"]=0;
 $error = "";
 
 $infoclient = new ReclamationC();
@@ -55,7 +56,7 @@ if (
     <meta content="" name="messageiption">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="assets\images\favicon.ico.jpg" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -126,8 +127,8 @@ if (
     <div class="container-fluid position-relative p-0">
         <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
             <a href="" class="navbar-brand p-0">
-                <h1 class="text-primary m-0"><i class="fa fa-map-marker-alt me-3"></i>TUNISTYLE</h1>
-                <!-- <img src="img/logo.png" alt="Logo"> -->
+            <h1 class="text-primary m-0"> <img src="travel-agency-html-template\LogoTunistyle.jpg" alt="Logo">  </i>TUNISTYLE</h1>
+                
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars"></span>
@@ -184,7 +185,7 @@ if (
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <h5>Get In Touch</h5>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos</p>
+                    
                     <div class="d-flex align-items-center mb-4">
                         <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" style="width: 50px; height: 50px;">
                             <i class="fa fa-map-marker-alt text-white"></i>

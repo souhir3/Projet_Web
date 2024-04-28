@@ -1,97 +1,63 @@
-
 <?php
-
-include 'D:/xampp/htdocs/PHP_CRUD__M/Controller/ReclamationC.php';
-include 'D:/xampp/htdocs/PHP_CRUD__M/Controller/ReponseC.php';
-//include '../Controller/ReclamationC.php';
+include '../Controller/ReclamationC.php';
+session_start();
+$_SESSION["idclient"]=10;
+$_SESSION["idrec"]=0;
 $reclamationC = new ReclamationC();
-$_SESSION["idrec"]=$_POST["idrec"];
-//$_SESSION["idrec"]=49;
-$reclamation = $reclamationC->showReclamation($_SESSION["idrec"]);
-$error = "";
-
-// create reponse
-$reponse= null;
-
-// create an instance of the controller
-$reponseC = new ReponseC();
-if (
-    
-    isset($_POST["emailrep"]) &&
-    isset($_POST["messagerep"])&&
-    isset($_POST["idrec"])
-
-) {
-    if (
-       
-        !empty($_POST["emailrep"]) &&
-        !empty($_POST["messagerep"])&&
-        !empty($_POST["idrec"])
-    ) {
-        
-            $reponse= new Reponse(
-                null,
-                
-                $_POST['emailrep'],
-                $_POST['messagerep'],
-                $_POST['idrec']
-            );
-            $reponseC->addReponse($reponse);
-            require_once('send.php');
-
-            header('Location:bs-basic-table.php');
-
-       
-    } else
-        $error = "Missing information";
-}
+//$list = $reclamationC->listReclamations($_SESSION["idclient"]);
+$list = $reclamationC->all_Reclamations();
 ?>
-
-
-
-
 
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-    <title>TUNISTYLE back <?= $_SESSION["idrec"]?></title>
+    <title>TUNISTYLE back</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <!-- Meta -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
-    <meta name="author" content="Codedthemes" />
-    <!-- Favicon icon -->
-    <link rel="icon" href="assets\images\favicon.ico.jpg" type="image/x-icon">
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
-    <!-- waves.css -->
-    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-    <!-- themify-icons line icon -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
-    <!-- ico font -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
-    <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
-
-</head>
-
-<body>
+      <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+      <meta name="author" content="Codedthemes" />
+      <!-- Favicon icon -->
+      <link rel="icon" href="assets\images\favicon.ico.jpg" type="image/x-icon">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+      <!-- Required Fremwork -->
+      <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+      <!-- waves.css -->
+      <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+      <!-- themify-icons line icon -->
+      <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+      <!-- ico font -->
+      <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
+      <!-- Font Awesome -->
+      <link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
+      <!-- Style.css -->
+      <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+      <style>
+    .cercle {
+        width: 20px;
+        height: 20px;
+        border-radius: 20%;
+    }
+    .rouge {
+        background-color: red;
+    }
+    .vert {
+        background-color: green;
+    }
+     </style>
+    </head>
+  <body>
     <!-- Pre-loader start -->
     <div class="theme-loader">
         <div class="loader-track">
@@ -166,7 +132,7 @@ if (
                                 </div>
                             </div>
                         </div>
-                        <a href="index.php">
+                        <a href="index_.php">
                             <img class="img-fluid" src="assets\images\LogoTunistylenew2.jpg" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options waves-effect waves-light">
@@ -199,7 +165,7 @@ if (
                                         <div class="media">
                                             <img class="d-flex align-self-center img-radius" src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
                                             <div class="media-body">
-                                                <h5 class="notification-user">John Doe</h5>
+                                                <h5 class="notification-user">Molka Serghini</h5>
                                                 <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
                                                 <span class="notification-time">30 minutes ago</span>
                                             </div>
@@ -299,8 +265,8 @@ if (
                             </div>
                             <div class="pcoded-navigation-label">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="">
-                                    <a href="index.php" class="waves-effect waves-dark">
+                                <li class="active">
+                                    <a href="index_.php" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
@@ -316,7 +282,7 @@ if (
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
-                                        <li class=" ">
+                                        <li class="active">
                                             <a href="breadcrumb.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext">Breadcrumbs</span>
@@ -358,7 +324,7 @@ if (
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-                                        <li class="active ">
+                                        <li class=" ">
                                             <a href="tooltip.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext">Tooltip And Popover</span>
@@ -461,18 +427,18 @@ if (
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">Add Reponse</h5>
-                                            <!--<p class="m-b-0">Lorem Ipsum is simply dummy text of the printing</p>-->
+                                            <h5 class="m-b-10">Reclamation's List</h5>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <ul class="breadcrumb">
                                             <li class="breadcrumb-item">
-                                                <a href="index.php"> <i class="fa fa-home"></i> </a>
+                                                <a href="index_.php"> <i class="fa fa-home"></i> </a>
                                             </li>
                                             <li class="breadcrumb-item"><a href="#!">Basic Components</a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Add Reponse</a>
+                                            <li class="breadcrumb-item"><a href="#!">Reclamation's List</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -481,97 +447,67 @@ if (
                         </div>
                         <!-- Page-header end -->
                         <div class="pcoded-inner-content">
-                            <div class="main-body">
+                            <!-- Main-body start -->
+                           <!-- <div class="main-body">
                                 <div class="page-wrapper">
-                                    <!-- Page-body start -->
-                                    <style>
-        /* Style pour centrer le formulaire */
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Ajustez la hauteur si nécessaire */
-        }
-
-        /* Style pour le formulaire */
-        form {
-            width: 95%; /* Ajustez la largeur du formulaire selon vos besoins */
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-    </style>
-                                    <div id="error">
-                                      <?php echo $error; ?>
-                                    </div>
-                                    <div class="page-body" >
-                                      <div class="row">
-                                        <form action="" method="POST" > 
-                                        <div class="col-sm-12">                                           
-                                                <!-- Tooltips on textbox card start -->form
-                                                <div class="card o-visible">
-                                                    <div class="card-header">
-                                                        <h5>Reponse</h5>
-                                                    </div>
-                                                    <div class="card-block tooltip-icon button-list">
-                                                       <!-- <div class="input-group">
-                                                            <span class="input-group-prepend" id="name"><label class="input-group-text"><i class="icofont icofont-user-alt-3"></i></label></span>
-                                                            <input type="text" class="form-control" placeholder="Enter your name" title="Enter your name" data-toggle="tooltip">
-                                                        </div> -->
-                                                
-                                                       <textarea class="form-control" placeholder="Leave a message here" id="messagerep" name="messagerep" style="height: 100px"></textarea>
-                                                       <label for="message"></label>
-                                                       </div>
-                                                       
-                                                      
-                                                    <div class="card-block tooltip-icon button-list">
-                                                    <h5>Réclamation</h5>
-                                                       <!-- <div class="input-group">
-                                                            <span class="input-group-prepend" id="name"><label class="input-group-text"><i class="icofont icofont-user-alt-3"></i></label></span>
-                                                            <input type="text" class="form-control" placeholder="Enter your name" title="Enter your name" data-toggle="tooltip">
-                                                        </div> -->
-                                                
-                                                       <textarea class="form-control"  id="messagerec" name="messagerec" placeholder="<?=$reclamation['message']; ?>" style="height: 100px"></textarea>
-                                                       <label for="message"></label>
-                                                       </div>
-                                                       
-                                                      
-                                                        <div class="form-floating">
-                                                            <input type="number" name="idrec" class="form-control" value="<?=$reclamation['idrec']; ?>" id="idrec" placeholder="IDreclamation">
-                                                            <label for="name"></label>
-                                                        </div>
-                                                       
-                                                        <div class="input-group">
-                                                            <span class="input-group-prepend" id="name"><label class="input-group-text"><i class="icofont icofont-ui-email"></i></label></span>
-                                                            <input type="text" id="emailrep" name="emailrep" value="<?=$reclamation['email']; ?>" class="form-control" placeholder="Enter email" title="Enter email" data-toggle="tooltip">
-                                                        </div>
-                                                        
-                                                        <button type="submit" class="btn btn-primary waves-effect waves-light m-r-20" data-toggle="tooltip" data-placement="right" title="submit">Submit
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <!-- Tooltips on textbox card end -->
-                                            </div>
-                                        </div>
-                                        </form>
-                                    </div>
-                                          </div>
-                                    
-                                    <!-- Page-body end -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Main-body end -->
-                    <div id="styleSelector">
-
-                    </div>
-                </div>
+                                     Page-body start -->
+                                     <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+               <!-- <h6 class="section-title bg-white text-center text-primary px-3">Reclamation's List</h6>-->
+                <h1 class="mb-5">Reclamation's List</h1>
+            </div>
+            <div class="row g-4 justify-content-center">
+               
             </div>
         </div>
     </div>
+    <!-- Package End -->
 
+   
+    <table border="1" align="center" width="70%">
+        <tr>
+            <th>Id Reclamation</th>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Description</th>
+            <th>subject</th>
+            <th>Etat</th>
+            <th>Répondre</th>
+           
+        </tr>
+        <?php
+        foreach ($list as $reclamation) {
+        ?>
+            <tr>
+                <td><?= $reclamation['idrec']; ?></td>
+                <td><?= $reclamation['name']; ?></td>
+                <td><?= $reclamation['email']; ?></td>
+                <td><?= $reclamation['message']; ?></td>
+                <td><?= $reclamation['subject']; ?></td>
+                <td><?PHP if ($reclamation['idrep'] !== null) {
+               echo  '<div class="cercle vert"></div>';
+            } else {
+               echo  '<div class="cercle rouge"></div>';
+            }  ?></td>
+
+                <td align="center">
+                    <form method="POST" action="tooltip.php">
+                        <input type="submit" name="Rep" value="Répondre" <?php if ($reclamation['idrep'] !== null) echo 'disabled'; ?>>
+                        <input type="hidden" name="idrec" value="<?= $reclamation['idrec']; ?>">
+                    </form>
+                </td>
+                
+            </tr>
+        <?php
+        }
+        ?>
+    </table>
+                                     
+                                    
+                                  
+                                      
+                                       
 
 
     <!-- Warning Section Starts -->
@@ -617,37 +553,21 @@ if (
     <p>Sorry for the inconvenience!</p>
 </div>
 <![endif]-->
-    <!-- Warning Section Ends -->
-    <!-- Required Jquery -->
-    <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
-    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
-    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
-    <!-- waves js -->
-    <script src="assets/pages/waves/js/waves.min.js"></script>
-    <!-- jquery slimscroll js -->
-    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
-    <script src="assets/js/vertical/vertical-layout.min.js"></script>
-    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-
-        $(document).ready(function() {
-            $('[data-toggle="popover"]').popover({
-                html: true,
-                content: function() {
-                    return $('#primary-popover-content').php();
-                }
-            });
-        });
-    </script>
-    <!-- Custom js -->
-    <script type="text/javascript" src="assets/js/script.js"></script>
-
+<!-- Warning Section Ends -->
+<!-- Required Jquery -->
+<script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
+<script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
+<script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
+<!-- waves js -->
+<script src="assets/pages/waves/js/waves.min.js"></script>
+<!-- jquery slimscroll js -->
+<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+<!-- Custom js -->
+<script src="assets/js/pcoded.min.js"></script>
+<script src="assets/js/vertical/vertical-layout.min.js"></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="assets/js/script.js"></script>
 </body>
 
 </html>

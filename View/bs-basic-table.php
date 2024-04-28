@@ -5,6 +5,16 @@ include '../Controller/ReponseC.php';
 $reponseC = new ReponseC();
 
 $list = $reponseC->listReponses();
+
+if(isset($_POST['search'])) {
+    $search_query = $_POST['search_query'];
+    $list = $reponseC->searchLocalById($search_query);
+  }
+  if(isset($_POST['sort'])) {
+    $sortby = $_POST['sortby'];
+    $list = $reponseC->sortLocaux($sortby);
+}
+
 ?>
 
 
@@ -13,7 +23,7 @@ $list = $reponseC->listReponses();
 <html lang="en">
 
 <head>
-    <title>Material Able bootstrap admin template by Codedthemes</title>
+    <title>TUNISTYLE back</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -28,7 +38,7 @@ $list = $reponseC->listReponses();
     <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="Codedthemes" />
     <!-- Favicon icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets\images\favicon.ico.jpg" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
     <!-- waves.css -->
     <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
@@ -123,7 +133,7 @@ $list = $reponseC->listReponses();
                             </div>
                         </div>
                         <a href="index_.php">
-                            <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" />
+                            <img class="img-fluid" src="assets\images\LogoTunistylenew2.jpg" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>
@@ -417,8 +427,8 @@ $list = $reponseC->listReponses();
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">Bootstrap Basic Tables</h5>
-                                            <p class="m-b-0">Lorem Ipsum is simply dummy text of the printing</p>
+                                            <h5 class="m-b-10">Reponse's List</h5>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -428,7 +438,7 @@ $list = $reponseC->listReponses();
                                             </li>
                                             <li class="breadcrumb-item"><a href="#!">Bootstrap Tables</a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Basic Tables</a>
+                                            <li class="breadcrumb-item"><a href="#!">Reponse's List</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -446,7 +456,7 @@ $list = $reponseC->listReponses();
                                         <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Reponse's List</h6>
+                
                 <h1 class="mb-5">Reponse's List</h1>
             </div>
             <div class="row g-4 justify-content-center">
@@ -456,12 +466,44 @@ $list = $reponseC->listReponses();
     </div>
     
 
+    
+
+
     <center>
-     
-        <h2>
-            <a href="tooltip.php">Nouvelle reponse</a>
-        </h2>
+    <form method="POST">
+    
+        <label for="sortby">Trier par:</label>
+         <select id="sortby" name="sortby">
+           <option value="idrep">ID Rep</option>
+           <option value="emailrep">Email</option>
+           <option value="messagerep">Message</option>
+           <option value="idrec">ID Rec</option>
+          
+     </select>
+    <button type="submit" name="sort" style="background-color: #008CBA; color: white; padding: 5px 10px; border-radius: 3px;">Trier</button>
+
+</form>
+
+    <br><br>
+
+    <form method="POST">
+  <label for="search_query">Rechercher par ID:</label>
+  <input type="text" id="search_query" name="search_query" placeholder="Entrez l'ID...">
+  <button type="submit" name="search"><i class="fa fa-search"></i> Rechercher</button>
+</form>
     </center>
+<br>
+
+<center>
+     
+        
+        <h2>
+            <a href="breadcrumb.php">Reclamation's List</a>
+        </h2>
+
+    </center>
+    <br>
+
     <table border="1" align="center" width="70%">
         <tr>
             <th>Id Reponse</th>

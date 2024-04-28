@@ -16,6 +16,18 @@ class ReclamationC
             die('Error:' . $e->getMessage());
         }
     }
+    public function all_Reclamations()
+    {
+       //$sql = "SELECT * FROM reclamation";
+      $sql = "SELECT reclamation.*,reponse.idrep FROM `reclamation` left join reponse on reclamation.idrec= reponse.idrec;";
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
     public function listReclamations($idclient)
     {
        //$sql = "SELECT * FROM reclamation";
@@ -28,7 +40,6 @@ class ReclamationC
             die('Error:' . $e->getMessage());
         }
     }
-
     function deleteReclamation($id)
     {
         $sql = "DELETE FROM reclamation WHERE idrec = :id";
@@ -94,7 +105,7 @@ class ReclamationC
 
     function showReclamation($id)
     {
-        $sql = "SELECT * from reclamation where idrec = $id";
+        $sql = "SELECT * from reclamation where idrec =$id";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);

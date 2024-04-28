@@ -34,6 +34,7 @@ if (
             
         );
         $reponseC->addReponse($reponse);
+
         header('Location:ListReponses.php');
     } else
         $error = "Missing information";
