@@ -495,11 +495,15 @@ if(isset($_POST['search'])) {
 <br>
 
 <center>
-     
+<form method="POST" action="generate_pdf.php">
+                     <input type="hidden" name="type" value="pdf">
+                       <button type="submit" class="btn btn-success m-2">Generate PDF</button>
+                  </form>
         
         <h2>
             <a href="breadcrumb.php">Reclamation's List</a>
         </h2>
+        
 
     </center>
     <br>
@@ -523,7 +527,7 @@ if(isset($_POST['search'])) {
                 <td><?= $reponse['idrec']; ?></td>
 
                 <td align="center">
-                    <form method="POST" action="updateReponse.php">
+                    <form method="POST" action="accordion.php">
                         <input type="submit" name="update" value="Update">
                         <input type="hidden" value=<?PHP echo $reponse['idrep']; ?> name="idrep">
                     </form>

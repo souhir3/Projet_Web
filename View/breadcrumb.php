@@ -6,6 +6,28 @@ $_SESSION["idrec"]=0;
 $reclamationC = new ReclamationC();
 //$list = $reclamationC->listReclamations($_SESSION["idclient"]);
 $list = $reclamationC->all_Reclamations();
+
+
+// stat
+
+
+$sql1 = "SELECT count(*) as nbrtrait FROM reclamation inner join reponse on reclamation.idrec= reponse.idrec;";
+$sql2 = "SELECT count(*) as nbrnontrait FROM reclamation where idrec not in (select idrec from reponse);";
+
+$db = config::getConnexion();
+//$qb1= $db->query("SELECT * FROM reponse WHERE idrep=56 ");
+$qb1= $db->query($sql1);
+$qb1->execute();
+//$cb1=count($qb1->fetchAll());
+$cb1=$qb1->fetchColumn();
+//$qb2= $db->query("SELECT * FROM reponse WHERE idrep=62 ");
+$qb2= $db->query($sql2);
+$qb2->execute();
+//$cb2=count($qb2->fetchAll());
+$cb2=$qb2->fetchColumn();
+
+//$cb1=5;
+//$cb2=3;
 ?>
 
 
@@ -504,11 +526,60 @@ $list = $reclamationC->all_Reclamations();
         ?>
     </table>
                                      
-                                    
-                                  
+                            
+                                      
                                       
                                        
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+        #chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+<div id="chart-container">
+<canvas id="myPieChart" width="300" height="300"></canvas>
+</div>
+<?php
+// Variables données
+$variables = [$cb1, $cb2]; // Valeurs des variables
+$labels = ['traitées', 'Non Traitées']; // Étiquettes correspondantes
 
+// Conversion des données en JSON pour les rendre utilisables en JavaScript
+$variables_json = json_encode($variables);
+$labels_json = json_encode($labels);
+?>
+
+<script>
+// Récupération des données depuis PHP
+var variables = <?php echo $variables_json; ?>;
+var labels = <?php echo $labels_json; ?>;
+
+// Création du diagramme circulaire
+var ctx = document.getElementById('myPieChart').getContext('2d');
+var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        datasets: [{
+            data: variables,
+            backgroundColor: [
+                'rgba(0, 255, 0, 0.7)', // Couleur pour la première variable
+                'rgba(255, 0, 0, 0.7)'  // Couleur pour la deuxième variable
+            ],
+        }],
+        labels: labels
+    },
+    options: {
+        responsive: false,
+        title: {
+            display: true,
+            text: 'Diagramme circulaire'
+        }
+    }
+});
+</script>
 
     <!-- Warning Section Starts -->
     <!-- Older IE warning message -->

@@ -3,7 +3,7 @@ include '../Controller/ReclamationC.php';
 
 $reclamationC = new ReclamationC();
 
-$list = $reclamationC->listReclamations();
+$list = $reclamationC->listReclamations($_SESSION["idclient"]);
 ?>
 
 <!DOCTYPE html>

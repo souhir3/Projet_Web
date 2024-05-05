@@ -1,7 +1,6 @@
 <?php
 include 'D:/xampp/htdocs/PHP_CRUD__M/config.php';
 include 'D:/xampp/htdocs/PHP_CRUD__M/Model/Reclamation.php';
-
 class ReclamationC
 {
     public function infoclient($idclient)
@@ -79,9 +78,9 @@ class ReclamationC
             $db = config::getConnexion();
             $query = $db->prepare(
                 'UPDATE reclamation SET 
-                    email = :email, 
-                    name = :name, 
-                    message = :message,
+                name = :name,
+                email= :email,
+                   message = :message,
                    subject = :subject
                 WHERE idrec= :idrec'
             );
@@ -100,7 +99,6 @@ class ReclamationC
     }
 
 
-
     
 
     function showReclamation($id)
@@ -117,4 +115,5 @@ class ReclamationC
             die('Error: ' . $e->getMessage());
         }
     }
+    
 }

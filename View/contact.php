@@ -246,7 +246,7 @@ if (
                            
                          </div>
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" name="email" id="email" placeholder="Your Email" value=<?PHP echo $infoclient['email']; ?>>
+                                    <input type="text" class="form-control" name="email" id="email" placeholder="Your Email" value=<?PHP echo $infoclient['email'] ; ?> >
                                     <label for="email"></label>
                                 </div>
                             </div>
@@ -325,7 +325,7 @@ if (
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-3">Newsletter</h4>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    
                     <div class="position-relative mx-auto" style="max-width: 400px;">
                         <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
                         <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
@@ -382,7 +382,15 @@ if (
         }
     </script>
 
-    <!-- JavaScript Libraries -->
+<script>
+        var body = document.getElementsByTagName("body");
+        var div = document.createElement("div");
+        var host = window.location.host ? window.location.origin : 'http://localhost/';
+        div.innerHTML = `<iframe id="synvision_ai_iframe" name="synvision_ai_iframe" src="http://synvision.ai/chat-iframe?uuid=bSbQhTfq&host=${host}" height = "760px" width = "550px" style="position:fixed;right:0;bottom: 20px;z-index: 100;border:none"></iframe>`;
+        document.body.appendChild(div);
+    </script>
+
+   <!-- JavaScript Libraries -->
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
